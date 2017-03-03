@@ -1,4 +1,5 @@
-danifr-rundeck
+Rundeck Tools
 ==============
 
-Rundeck scripts
+Originally forked from danifr-rundeck
+changed the script to get all executions by project and do bulk delete.
