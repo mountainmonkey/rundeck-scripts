@@ -5,12 +5,14 @@ import sys
 import time
 import xml.etree.ElementTree as ET
 
-API_KEY=''
+API_KEY='ci75m4XsXQJHIt9e8aghcT6N8fP9DIdj'
 RUNDECKSERVER = 'http://127.0.0.1'
 RUNDECKPORT='4440'
-EXPIRE_DAYS = 90
-#TODAY = int(round(time.time() * 1000))
+EXPIRE_DAYS = 30
+TODAY = int(round(time.time() * 1000))
 #EXPIRE_MILISECONDS = EXPIRE_DAYS * 24 * 60 * 60 * 1000
+END_DATE=TODAY-(EXPIRE_DAYS * 24 * 60 * 60 * 1000);
+#END_DATE=TODAY;
 
 # API call to get the list of the existing projects on the server.
 def listProjects():
@@ -85,9 +87,12 @@ def checkDeletion(execid_dates):
 # API call to get the list of executions of a project.
 def listExecsForProject(projectName):
     url =  RUNDECKSERVER +':'+RUNDECKPORT+'/api/14/project/'+projectName+'/executions'
-    args = { 'olderFilter': str(EXPIRE_DAYS)+'d','max':'5000' }
-    print "args:"+str(args)
+    #args = { 'olderFilter': str(EXPIRE_DAYS)+'d','max':'1' }
+    #args = { 'olderFilter': '1y','max':'1' }
     #args = { 'recentFilter': '5h' }
+    #args = { 'begin': 0 }
+    args = { 'end':str(END_DATE),'max':'900' }
+    print "args:"+str(args)
     headers = {'Content-Type': 'application/json','X-RunDeck-Auth-Token': API_KEY }
     r = requests.get(url, params=args, headers=headers, verify=False)
     #print "result:" + r.text.encode('utf-8')
@@ -123,6 +128,7 @@ for project in projects:
     bulkDeleteExecution(getExecIDs(listExecsForProject(project)))
     #ids=getExecIDs(listExecsForProject(project))
     #for exec_id in ids:
+    #    print exec_id+","
     #    deleteExecution(exec_id)
 
     #listJobsForProject(project)
