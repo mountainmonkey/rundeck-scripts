@@ -5,7 +5,7 @@ import sys
 import time
 import xml.etree.ElementTree as ET
 
-API_KEY='ci75m4XsXQJHIt9e8aghcT6N8fP9DIdj'
+API_KEY=''
 RUNDECKSERVER = 'http://127.0.0.1'
 RUNDECKPORT='4440'
 EXPIRE_DAYS = 30
